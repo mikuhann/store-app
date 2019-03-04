@@ -54,3 +54,4 @@ fabric.properties
 .idea/httpRequests
 #node_modules
 node_modules/
+.idea
