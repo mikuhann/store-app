@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+import Navbar from './components/Navbar';
+import ProductList from './components/ProductList';
+import Details from './components/Details';
+import Cart from './components/Cart';
+import Default from './components/Default';
+
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Product from "./components/Product";
 
 class App extends Component {
   render() {
     return (
-        <div className='container'>
-          <div className="row">
-            <div className="col-6">column 1</div>
-            <div className="col-6">
-              <span>
-                <i className='fas fa-home'/>
-              </span>
-            </div>
-          </div>
-        </div>
+        <React.Fragment>
+          <Navbar />
+          <ProductList />
+          <Details />
+          <Cart />
+          <Default />
+        </React.Fragment>
     );
   }
 }
