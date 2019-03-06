@@ -7,7 +7,9 @@ class ProductProvider extends Component {
   state = {
     products: [],
     detailProduct: detailProduct,
-    cart: []
+    cart: [],
+    modalOpen: true,
+    modalProduct: detailProduct
   };
   componentDidMount() {
     this.setProducts();
@@ -44,9 +46,25 @@ class ProductProvider extends Component {
     this.setState(() => {
       return {
         products: tempProducts,
-        inCart: [...this.state.cart, productInCart]
+        cart: [...this.state.cart, productInCart]
       }
     }, () => console.log(this.state));
+  };
+  openModal = (id) => {
+    const modalProduct = this.getId(id);
+    this.setState(() => {
+      return {
+        modalProduct: modalProduct,
+        modalOpen: true
+      }
+    })
+};
+  closeModal = () => {
+    this.setState(() => {
+      return {
+        modalOpen: false
+      }
+    })
   };
   render() {
     return (
@@ -55,7 +73,9 @@ class ProductProvider extends Component {
           ...this.state,
           getId: this.getId(),
           handleDetail: this.handleDetail,
-          addToCart: this.addToCart
+          addToCart: this.addToCart,
+          openModal: this.openModal,
+          closeModal: this.closeModal
         }}>
           {this.props.children}
         </ProductContext.Provider>
