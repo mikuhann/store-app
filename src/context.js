@@ -8,7 +8,7 @@ class ProductProvider extends Component {
     products: [],
     detailProduct: detailProduct,
     cart: [],
-    modalOpen: true,
+    modalOpen: false,
     modalProduct: detailProduct
   };
   componentDidMount() {
@@ -48,7 +48,7 @@ class ProductProvider extends Component {
         products: tempProducts,
         cart: [...this.state.cart, productInCart]
       }
-    }, () => console.log(this.state));
+    });
   };
   openModal = (id) => {
     const modalProduct = this.getId(id);
