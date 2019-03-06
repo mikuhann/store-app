@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import { storeProducts, detailProduct } from "./data";
+import {detailProduct, storeProducts} from "./data";
 
 const ProductContext = React.createContext();
 
 class ProductProvider extends Component {
   state = {
     products: [],
-    detailProduct: detailProduct
+    detailProduct: detailProduct,
+    cart: []
   };
   componentDidMount() {
     this.setProducts();
@@ -21,17 +22,38 @@ class ProductProvider extends Component {
       return { products: tempProducts };
     })
   };
-  handleDetail = () => {
-    console.log('handle detail');
+  getId = (id) => {
+    return this.state.products.find((item) => item.id === id);
+  };
+  handleDetail = (id) => {
+    const product = this.getId(id);
+    this.setState(() => {
+      return {
+        detailProduct: product
+      }
+    })
   };
   addToCart = (id) => {
-    console.log(`id is ${id}`)
+    let tempProducts = [...this.state.products];
+    let index = tempProducts.indexOf(this.getId(id));
+    const productInCart = tempProducts[index];
+    productInCart.inCart = true;
+    productInCart.count = 1;
+    const price = productInCart.price;
+    productInCart.total = price;
+    this.setState(() => {
+      return {
+        products: tempProducts,
+        inCart: [...this.state.cart, productInCart]
+      }
+    }, () => console.log(this.state));
   };
   render() {
     return (
       <div>
         <ProductContext.Provider value = {{
           ...this.state,
+          getId: this.getId(),
           handleDetail: this.handleDetail,
           addToCart: this.addToCart
         }}>
